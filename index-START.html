@@ -56,8 +56,12 @@
     <audio data-key="76" src="sounds/tink.wav"></audio>
 
     <script>
+      //on keydown event, defines audio as the keyCode on the audio element that is triggered
       window.addEventListener("keydown", function (e) {
-        console.log(e.keyCode);
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        console.log(audio);
+        if (!audio) return; //if there is no match, exit the function
+        audio.play();
       });
     </script>
   </body>
