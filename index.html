@@ -56,7 +56,8 @@
     <audio data-key="76" src="sounds/tink.wav"></audio>
 
     <script>
-      window.addEventListener("keydown", function (e) {
+      //keep function separate from event listener so that function could be connected to a different event at a different time
+      function playDrums(e) {
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); //on keydown event, defines audio as the keyCode on the audio element that is triggered
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`); //selects div with class of .key and keyCode associated with keystroke
         console.log(audio);
@@ -65,17 +66,19 @@
         audio.play();
         key.classList.add("playing");
         console.log(key);
-      });
+      }
 
       function removeTransition(e) {
         if (e.propertyName !== "transform") return; //exit function if it is any other transition event property
-        console.log(e.propertyName);
+        this.classList.remove("playing"); //removes the playing class after transform ends
       }
 
       const keys = document.querySelectorAll(".key");
       keys.forEach((key) =>
         key.addEventListener("transitionend", removeTransition)
       );
+
+      window.addEventListener("keydown", playDrums);
     </script>
   </body>
 </html>
