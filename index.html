@@ -66,6 +66,16 @@
         key.classList.add("playing");
         console.log(key);
       });
+
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return; //exit function if it is any other transition event property
+        console.log(e.propertyName);
+      }
+
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
     </script>
   </body>
 </html>
